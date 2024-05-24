@@ -3,62 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Предложение</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Proposal</title>
+    <link rel="stylesheet" href="accessibility.css">
+    <link rel="stylesheet" href="proposal.css">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.html">Главная</a></li>
+                <li><a href="index.html">О нас</a></li>
+                <li><a href="proposal.html">Упрощение текста</a></li>
+                <li><a href="#contact">Контакты</a></li>
+                <li><a href="#" onclick="toggleAccessibility()"><img src="eye-icon.png" style="height: 20px;"></a></li>
             </ul>
         </nav>
     </header>
-    <main>
-        <section class="proposal-section">
-            <h2>Предложение</h2>
-            <div class="proposal-container">
-                <div class="proposal-box" onclick="openModal('textModal')">
-                    <p>Вставьте текст</p>
-                </div>
-                <div class="proposal-box" onclick="openModal('imageModal')">
-                    <p>Вставьте фотографию статьи</p>
-                </div>
-                <div class="proposal-box" onclick="openModal('urlModal')">
-                    <p>Вставьте ссылку на статью</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Modals -->
-    <div id="textModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('textModal')">&times;</span>
-            <h2>Вставьте текст</h2>
-            <textarea id="textInput" rows="10" cols="60"></textarea>
-            <button onclick="submitText()">Готово</button>
+    <div id="accessibilityBar" class="accessibility-bar" style="display: none;">
+        <div class="accessibility-options">
+            <span>Размер шрифта:</span>
+            <button onclick="changeFontSize('small')"><img src="small.jpg" alt="small"></button>
+            <button onclick="changeFontSize('medium')"><img src="medium.jpg" alt="medium"></button>
+            <button onclick="changeFontSize('large')"><img src="large.jpg" alt="large"></button>
+            <span>Цвета сайта:</span>
+            <button id="color-black" onclick="changeColorScheme('black')"><img src="bl_wh.jpg" alt="black"></button>
+            <button id="color-white" onclick="changeColorScheme('white')"><img src="wh_bl.jpg" alt="white"></button>
+            <button id="color-blue" onclick="changeColorScheme('blue')"><img src="bl_sin.jpg" alt="blue"></button>
+            <button id="color-beige" onclick="changeColorScheme('beige')"><img src="brwn.jpg" alt="beige"></button>
+            <button id="color-yellow" onclick="changeColorScheme('yellow')"><img src="bl_green.jpg" alt="yellow"></button>
+            <span>Изображения:</span>
+            <button id="images-on" onclick="toggleImages(true)">Вкл</button>
+            <button id="images-off" onclick="toggleImages(false)">Выкл</button>
+            <span>Дополнительно:</span>
+            <button onclick="toggleSound()">🔊</button>
         </div>
+        <button onclick="resetAccessibility()">Вернуть стандартные настройки</button>
+        <button onclick="toggleAccessibility()">Закрыть панель</button>
     </div>
+    <section class="proposal-section">
+        <div id="text-button" class="proposal-card">Вставьте текст</div>
+        <div id="image-button" class="proposal-card">Вставьте фотографию статьи</div>
+        <div id="url-button" class="proposal-card">Вставьте ссылку на статью</div>
+    </section>
+    <form id="submission-form" style="display: none; text-align: center;">
+        <textarea id="input-area" rows="10" cols="50"></textarea>
+        <button type="submit">Отправить</button>
+    </form>
+    <script src="accessibility.js"></script>
+    <script>
+        document.getElementById('text-button').addEventListener('click', function() {
+            const form = document.getElementById('submission-form');
+            const inputArea = document.getElementById('input-area');
+            inputArea.value = '';
+            inputArea.placeholder = 'Введите текст:';
+            form.style.display = 'block';
+        });
 
-    <div id="imageModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('imageModal')">&times;</span>
-            <h2>Вставьте фотографию статьи</h2>
-            <input type="file" id="imageInput" accept="image/*">
-            <button onclick="submitImage()">Готово</button>
-        </div>
-    </div>
+        document.getElementById('image-button').addEventListener('click', function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = () => {
+                if (input.files && input.files[0]) {
+                    alert('Файл выбран: ' + input.files[0].name);
+                }
+            };
+            input.click();
+        });
 
-    <div id="urlModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('urlModal')">&times;</span>
-            <h2>Вставьте ссылку на статью</h2>
-            <input type="url" id="urlInput" placeholder="Введите URL">
-            <button onclick="submitURL()">Готово</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+        document.getElementById('url-button').addEventListener('click', function() {
+            const form = document.getElementById('submission-form');
+            const inputArea = document.getElementById('input-area');
+            inputArea.value = '';
+            inputArea.placeholder = 'Введите URL:';
+            form.style.display = 'block';
+        });
+    </script>
 </body>
 </html>
