@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Упрощение финансовых текстов</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="accessibility.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#simplify-text">Упрощение текста</a></li>
+                <li><a href="#contact">Контакты</a></li>
+                <li><a href="#" onclick="toggleAccessibility()"><img src="eye-icon.png"  style="height: 20px;"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-image-container">
+                <img src="photo1.jpg" alt="Фото 1" class="hero-image blurred">
+                <div class="hero-text">
+                    <h1>Генератор Идей</h1>
+                    <p>Создавайте сводки статей с легкостью и слушайте их озвучку с помощью нашего сервиса!</p>
+                    <form action="proposal.html" method="get">
+                        <button type="submit">Проверьте предложение</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section id="about" class="about-section">
+            <div class="content">
+                <img src="photo2.jpg" alt="Фото 2" class="about-image">
+                <div class="about-text">
+                    <h2>О нас</h2>
+                    <p>Наш сервис для создания сводок статей предоставляет удобный способ сжато ознакомиться с содержанием текста, а также прослушать его с помощью озвучивания. Мы стремимся сделать процесс работы с информацией быстрым и эффективным, помогая пользователям экономить время и улучшать продуктивность. Наш инструмент позволяет легко создавать сводки текстов различной длины и тематики, делая их доступными для восприятия в удобном формате. Мы гордимся своей простотой использования и высоким качеством сгенерированных сводок, что делает наш сервис незаменимым помощником в работе с большим объемом информации.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="accessibilityBar" class="accessibility-bar" style="display: none;">
+        <div class="accessibility-options">
+            <span>Размер шрифта:</span>
+            <button id="font-small" onclick="changeFontSize('small')"><img src="small.jpg" alt="Small Font"></button>
+            <button id="font-medium" onclick="changeFontSize('medium')"><img src="medium.jpg" alt="Medium Font"></button>
+            <button id="font-large" onclick="changeFontSize('large')"><img src="large.jpg" alt="Large Font"></button>
+            <span>Цвета сайта:</span>
+            <button id="color-black" onclick="changeColorScheme('black')"><img src="bl_wh.jpg" alt="Black Color"></button>
+            <button id="color-white" onclick="changeColorScheme('white')"><img src="wh_bl.jpg" alt="White Color"></button>
+            <button id="color-blue" onclick="changeColorScheme('blue')"><img src="bl_sin.jpg" alt="Blue Color"></button>
+            <button id="color-beige" onclick="changeColorScheme('beige')"><img src="brwn.jpg" alt="Beige Color"></button>
+            <button id="color-yellow" onclick="changeColorScheme('yellow')"><img src="bl_green.jpg" alt="Yellow Color"></button>
+            <span>Изображения:</span>
+            <button id="images-on" onclick="toggleImages(true)">Вкл</button>
+            <button id="images-off" onclick="toggleImages(false)">Выкл</button>
+            <span>Дополнительно:</span>
+            <button onclick="toggleSound()">🔊</button>
+        </div>
+        <button onclick="resetAccessibility()">Вернуть стандартные настройки</button>
+        <button onclick="toggleAccessibility()">Закрыть панель</button>
+    </div>
+    <script src="accessibility.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

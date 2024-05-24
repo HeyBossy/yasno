@@ -1,0 +1,144 @@
+/* Accessibility bar styles */
+.accessibility-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    border-bottom: 1px solid #ccc;
+}
+
+.accessibility-bar button img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.accessibility-bar button {
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    transition: border-color 0.3s;
+    border: 2px solid transparent;
+}
+
+.accessibility-bar button:hover {
+    background-color: #0056b3;
+}
+
+.accessibility-bar button.active {
+    background-color: #ffffff;
+    border-color: green;
+}
+
+.accessibility-bar .accessibility-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.accessibility-bar span {
+    font-size: 18px;
+    margin-right: 10px;
+    color: #000; /* Ensure text in the accessibility bar remains black */
+}
+
+.accessibility-bar button:hover {
+    background-color: #0056b3;
+}
+
+/* Ensure text in the accessibility bar remains black */
+.accessibility-bar span,
+.accessibility-bar button,
+.accessibility-bar button:hover {
+    color: #000 !important;
+}
+
+/* Color schemes */
+body.black-scheme {
+    background-color: #000;
+    color: #fff;
+}
+
+body.white-scheme {
+    background-color: #fff;
+    color: #000;
+}
+
+body.blue-scheme {
+    background-color: #001f3f;
+    color: #fff;
+}
+
+body.beige-scheme {
+    background-color: #f5f5dc;
+    color: #8b4513; /* Brown text */
+}
+
+body.yellow-scheme {
+    background-color: #8b4513;
+    color: #00ff00; /* Green text */
+}
+
+/* Text color classes */
+.black-text {
+    color: #000 !important;
+}
+
+.white-text {
+    color: #fff !important;
+}
+
+.dark-blue-text {
+    color: #001f3f !important;
+}
+
+.brown-text {
+    color: #8b4513 !important;
+}
+
+.green-text {
+    color: #00ff00 !important;
+}
+
+/* Ensure about-text background changes */
+.black-scheme .about-text,
+.black-scheme .hero-text {
+    background-color: #000;
+    color: #fff;
+}
+
+.white-scheme .about-text,
+.white-scheme .hero-text {
+    background-color: #fff;
+    color: #000;
+}
+
+.blue-scheme .about-text,
+.blue-scheme .hero-text {
+    background-color: #001f3f;
+    color: #fff;
+}
+
+.beige-scheme .about-text,
+.beige-scheme .hero-text {
+    background-color: #f5f5dc;
+    color: #8b4513;
+}
+
+.yellow-scheme .about-text,
+.yellow-scheme .hero-text {
+    background-color: #8b4513;
+    color: #00ff00;
+}

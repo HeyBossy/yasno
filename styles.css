@@ -1,0 +1,242 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #000; /* Default text color */
+    background-color: #fff; /* Default background color */
+}
+
+/* Header styles */
+header {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000; /* Keep header text color black */
+    font-weight: bold;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    color: #007bff; /* Optional: Add a hover effect for header links */
+}
+
+nav ul li a img {
+    height: 20px; /* Default size for the eye icon */
+    transition: height 0.3s ease; /* Smooth transition for resizing */
+    vertical-align: middle; /* Ensure the icon is vertically aligned */
+}
+
+/* Hero section styles */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px);
+}
+
+.hero-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black; /* Default text color */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: transparent; /* Прозрачный фон */
+    box-shadow: none;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin: 0;
+    color: black; /* Ensure hero text is visible */
+}
+
+.hero p {
+    font-size: 24px;
+    margin: 10px 0;
+    color: black; /* Ensure hero text is visible */
+}
+
+.hero button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+/* About section styles */
+.about-section {
+    text-align: center;
+    padding: 100px 0;
+}
+
+.about-section .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.about-section .content img.about-image {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+.about-section .about-text {
+    max-width: 600px;
+    margin: 0 auto 20px;
+    text-align: left;
+    padding: 0 20px;
+    color: black; /* Ensure about text is visible */
+}
+
+.about-section .about-text h2 {
+    margin-bottom: 20px;
+    font-size: 36px;
+    color: black; /* Ensure about text is visible */
+}
+
+.about-section .about-text p {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: black; /* Ensure about text is visible */
+}
+
+.about-text {
+    background-color: white; /* Стандартный фон */
+    color: black; /* Стандартный цвет текста */
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.hero-text {
+    background-color: transparent; /* Прозрачный фон */
+    color: black;
+    padding: 10px;
+}
+
+/* Accessibility bar styles */
+.accessibility-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.accessibility-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.accessibility-options span {
+    margin-right: 10px;
+}
+
+.accessibility-options button {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+.accessibility-options button:hover {
+    background-color: #0056b3;
+}
+
+/* Color schemes */
+.black-scheme {
+    background-color: #000;
+}
+
+.white-scheme {
+    background-color: #fff;
+}
+
+.blue-scheme {
+    background-color: #87CEEB;
+}
+
+.beige-scheme {
+    background-color: #F5F5DC;
+}
+
+.yellow-scheme {
+    background-color: #FFFF00;
+}
+
+/* Text colors */
+.black-text {
+    color: #000;
+}
+
+.white-text {
+    color: #fff;
+}
+
+.dark-blue-text {
+    color: #00008B;
+}
+
+.brown-text {
+    color: #8B4513;
+}
+
+.green-text {
+    color: #008000;
+}

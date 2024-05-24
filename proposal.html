@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Предложение</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="proposal-section">
+            <h2>Предложение</h2>
+            <div class="proposal-container">
+                <div class="proposal-box" onclick="openModal('textModal')">
+                    <p>Вставьте текст</p>
+                </div>
+                <div class="proposal-box" onclick="openModal('imageModal')">
+                    <p>Вставьте фотографию статьи</p>
+                </div>
+                <div class="proposal-box" onclick="openModal('urlModal')">
+                    <p>Вставьте ссылку на статью</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="textModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('textModal')">&times;</span>
+            <h2>Вставьте текст</h2>
+            <textarea id="textInput" rows="10" cols="60"></textarea>
+            <button onclick="submitText()">Готово</button>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('imageModal')">&times;</span>
+            <h2>Вставьте фотографию статьи</h2>
+            <input type="file" id="imageInput" accept="image/*">
+            <button onclick="submitImage()">Готово</button>
+        </div>
+    </div>
+
+    <div id="urlModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('urlModal')">&times;</span>
+            <h2>Вставьте ссылку на статью</h2>
+            <input type="url" id="urlInput" placeholder="Введите URL">
+            <button onclick="submitURL()">Готово</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
