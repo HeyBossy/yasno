@@ -39,7 +39,7 @@ nav ul li a:hover {
 }
 
 nav ul li a img {
-    height: 20px; /* Default size for the eye icon */
+    height: 30px; /* Default size for the eye icon */
     transition: height 0.3s ease; /* Smooth transition for resizing */
     vertical-align: middle; /* Ensure the icon is vertically aligned */
 }
@@ -209,7 +209,7 @@ nav ul li a img {
 }
 
 .blue-scheme {
-    background-color: #87CEEB;
+    background-color: #479fc2;
 }
 
 .beige-scheme {
@@ -230,7 +230,7 @@ nav ul li a img {
 }
 
 .dark-blue-text {
-    color: #00008B;
+    color: #ffffff;
 }
 
 .brown-text {

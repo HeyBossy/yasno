@@ -15,6 +15,7 @@
                 <li><a href="proposal.html">Упрощение текста</a></li>
                 <li><a href="#contact">Контакты</a></li>
                 <li><a href="#" onclick="toggleAccessibility()"><img src="eye-icon.png" style="height: 20px;"></a></li>
+                <li><a href="#" id="soundButton"><img src="sound_icon.png" style="height: 20px;"></a></li> <!-- Кнопка звука -->
             </ul>
         </nav>
     </header>
@@ -33,8 +34,6 @@
             <span>Изображения:</span>
             <button id="images-on" onclick="toggleImages(true)">Вкл</button>
             <button id="images-off" onclick="toggleImages(false)">Выкл</button>
-            <span>Дополнительно:</span>
-            <button onclick="toggleSound()">🔊</button>
         </div>
         <button onclick="resetAccessibility()">Вернуть стандартные настройки</button>
         <button onclick="toggleAccessibility()">Закрыть панель</button>

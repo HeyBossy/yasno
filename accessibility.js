@@ -20,13 +20,13 @@ function changeFontSize(size) {
     let scaleFactor;
     switch(size) {
         case 'small':
-            scaleFactor = 1.05;
+            scaleFactor = 1.25;
             break;
         case 'medium':
-            scaleFactor = 1.10;
+            scaleFactor = 1.50;
             break;
         case 'large':
-            scaleFactor = 1.20;
+            scaleFactor = 2.00;
             break;
         default:
             scaleFactor = 1.0;
@@ -46,10 +46,28 @@ function changeFontSize(size) {
         }
     });
 
+    // Масштабирование кнопок в секции "Proposal"
+    const proposalCards = document.querySelectorAll('.proposal-card');
+    proposalCards.forEach(card => {
+        const defaultWidth = card.getAttribute('data-default-width');
+        const defaultHeight = card.getAttribute('data-default-height');
+
+        if (defaultWidth && defaultHeight) {
+            card.style.width = (parseFloat(defaultWidth) * scaleFactor) + 'px';
+            card.style.height = (parseFloat(defaultHeight) * scaleFactor) + 'px';
+        } else {
+            card.setAttribute('data-default-width', card.offsetWidth);
+            card.setAttribute('data-default-height', card.offsetHeight);
+            card.style.width = (card.offsetWidth * scaleFactor) + 'px';
+            card.style.height = (card.offsetHeight * scaleFactor) + 'px';
+        }
+    });
+
     currentFontSize = size;
     updateActiveButton(`font-${size}`);
     ensureEyeIconVisibility();
 }
+
 
 function changeFontFamily(font) {
     let fontFamily;
@@ -173,17 +191,31 @@ function resetAccessibility() {
         element.style.fontSize = '16px';
     });
 
+    // Reset the proposal card sizes
+    const proposalCards = document.querySelectorAll('.proposal-card');
+    proposalCards.forEach(card => {
+        card.style.width = '200px'; // Reset to default width
+        card.style.height = '150px'; // Reset to default height
+        card.removeAttribute('data-default-width');
+        card.removeAttribute('data-default-height');
+    });
+
     currentFontSize = 'medium';
 
     // Show all images
     toggleImages(true);
     imagesHidden = false;
 
-    const eyeIcon = document.querySelector('header nav ul li a img');
-    eyeIcon.style.height = '20px'; // Reset to default height
-    eyeIcon.removeAttribute('data-default-icon-size');
+    const icons = document.querySelectorAll('header nav ul li a img');
+    icons.forEach(icon => {
+        icon.style.height = '20px'; // Reset to default height
+        icon.removeAttribute('data-default-icon-size');
+        icon.style.verticalAlign = 'middle'; // Reset to default alignment
+    });
+
     updateActiveButton('');
 }
+
 
 function ensureEyeIconVisibility() {
     const eyeIcon = document.querySelector('header nav ul li a img');

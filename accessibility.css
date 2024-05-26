@@ -1,4 +1,12 @@
 /* Accessibility bar styles */
+header nav ul li {
+    display: flex;
+    align-items: center;
+}
+
+header nav ul li a img {
+    transition: height 0.3s ease, vertical-align 0.3s ease;
+}
 .accessibility-bar {
     display: flex;
     flex-direction: column;
@@ -16,6 +24,10 @@
     width: 20px;
     height: 20px;
     vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+.accessibility-bar button.active img {
+    transform: scale(1.2); /* Увеличение на 20% */
 }
 
 .accessibility-bar button {
@@ -101,7 +113,7 @@ body.yellow-scheme {
 }
 
 .dark-blue-text {
-    color: #001f3f !important;
+    color: #6ab0f5 !important;
 }
 
 .brown-text {
