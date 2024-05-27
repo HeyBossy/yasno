@@ -48,34 +48,5 @@
     </form>
     <script src="accessibility.js"></script>
     <script src="proposal.js"></script>
-    <script>
-        document.getElementById('text-button').addEventListener('click', function() {
-            const form = document.getElementById('submission-form');
-            const inputArea = document.getElementById('input-area');
-            inputArea.value = '';
-            inputArea.placeholder = 'Введите текст:';
-            form.style.display = 'block';
-        });
-
-        document.getElementById('image-button').addEventListener('click', function() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = () => {
-                if (input.files && input.files[0]) {
-                    alert('Файл выбран: ' + input.files[0].name);
-                }
-            };
-            input.click();
-        });
-
-        document.getElementById('url-button').addEventListener('click', function() {
-            const form = document.getElementById('submission-form');
-            const inputArea = document.getElementById('input-area');
-            inputArea.value = '';
-            inputArea.placeholder = 'Введите URL:';
-            form.style.display = 'block';
-        });
-    </script>
 </body>
 </html>

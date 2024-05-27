@@ -52,13 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
         showSlide(currentSlide);
     };
 
-    document.getElementById('prev').addEventListener('click', () => {
+    document.getElementById('prev').addEventListener('click', (event) => {
+        event.preventDefault();
         clearInterval(slideInterval);
         prevSlide();
         slideInterval = setInterval(nextSlide, slideIntervalTime);
     });
 
-    document.getElementById('next').addEventListener('click', () => {
+    document.getElementById('next').addEventListener('click', (event) => {
+        event.preventDefault();
         clearInterval(slideInterval);
         nextSlide();
         slideInterval = setInterval(nextSlide, slideIntervalTime);
@@ -70,7 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Функция для обработки POST запроса для озвучивания текста
-document.getElementById('soundButton').addEventListener('click', function () {
+document.getElementById('soundButton').addEventListener('click', function (event) {
+    // Предотвращение действия по умолчанию
+    event.preventDefault();
+
     let textContent = '';
     const elements = document.querySelectorAll('main, .about-text p');
     elements.forEach(element => {
@@ -81,7 +86,7 @@ document.getElementById('soundButton').addEventListener('click', function () {
 
     const data = JSON.stringify({ text: textContent });
 
-    fetch('https://e412-88-201-206-51.ngrok-free.app/text_to_speech', {
+    fetch('/api/text_to_speech', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
