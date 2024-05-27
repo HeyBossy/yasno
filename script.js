@@ -1,18 +1,86 @@
-document.getElementById('soundButton').addEventListener('click', function() {
-    // Собрать текст со страницы кроме шапки
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = [
+        {
+            image: 'path/to/image1.jpg',
+            title: 'О нас',
+            text: 'Наш сервис помогает упрощать сложные тексты, делая их доступными для людей с ментальными особенностями, пожилых и тех, кто плохо знает русский язык.'
+        },
+        {
+            image: 'path/to/image2.jpg',
+            title: 'Версия для слепых',
+            text: 'Мы обеспечиваем версию для слабовидящих людей, делая информацию доступной и удобной для всех.'
+        },
+        {
+            image: 'path/to/image3.jpg',
+            title: 'Озвучивание текста',
+            text: 'Наш сервис предлагает высококачественное озвучивание упрощенных текстов, позволяя вам слушать информацию в удобном формате.'
+        }
+    ];
+
+    let currentSlide = 0;
+    const slideIntervalTime = 6000;
+    let slideInterval;
+
+    const aboutImage = document.querySelector('.about-section .content img.about-image');
+    const aboutTitle = document.querySelector('.about-section .about-text h2');
+    const aboutText = document.querySelector('.about-section .about-text p');
+
+    const updateSlide = (index) => {
+        const slide = slides[index];
+        aboutImage.src = slide.image;
+        aboutTitle.textContent = slide.title;
+        aboutText.textContent = slide.text;
+    };
+
+    const showSlide = (index) => {
+        aboutImage.classList.remove('active');
+        aboutText.classList.remove('active');
+        setTimeout(() => {
+            updateSlide(index);
+            aboutImage.classList.add('active');
+            aboutText.classList.add('active');
+        }, 500);
+    };
+
+    const nextSlide = () => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    };
+
+    const prevSlide = () => {
+        currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+        showSlide(currentSlide);
+    };
+
+    document.getElementById('prev').addEventListener('click', () => {
+        clearInterval(slideInterval);
+        prevSlide();
+        slideInterval = setInterval(nextSlide, slideIntervalTime);
+    });
+
+    document.getElementById('next').addEventListener('click', () => {
+        clearInterval(slideInterval);
+        nextSlide();
+        slideInterval = setInterval(nextSlide, slideIntervalTime);
+    });
+
+    // Initialize first slide and start automatic sliding
+    showSlide(currentSlide);
+    slideInterval = setInterval(nextSlide, slideIntervalTime);
+});
+
+// Функция для обработки POST запроса для озвучивания текста
+document.getElementById('soundButton').addEventListener('click', function () {
     let textContent = '';
     const elements = document.querySelectorAll('main, .about-text p');
     elements.forEach(element => {
         textContent += element.textContent + ' ';
     });
 
-    // Удалить лишние пробелы
     textContent = textContent.trim();
 
-    // Подготовка данных для запроса
     const data = JSON.stringify({ text: textContent });
 
-    // Отправка POST запроса
     fetch('https://e412-88-201-206-51.ngrok-free.app/text_to_speech', {
         method: 'POST',
         headers: {
@@ -22,14 +90,12 @@ document.getElementById('soundButton').addEventListener('click', function() {
         body: data
     })
     .then(response => {
-        console.log(response); // Вывод ответа сервера в консоль для отладки
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         return response.blob();
     })
     .then(blob => {
-        console.log('Получен файл:', blob); // Вывод информации о файле в консоль
         const audioUrl = window.URL.createObjectURL(blob);
         const audio = new Audio(audioUrl);
         audio.play();
@@ -66,9 +132,8 @@ function submitURL() {
 function ensureDefaultTextColor() {
     const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, .about-section p, .about-section h2, .hero-text h1, .hero-text p, .hero button');
     textElements.forEach(element => {
-        element.style.color = 'black'; // Set the default text color
+        element.style.color = 'black';
     });
 }
 
-// Call this function when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', ensureDefaultTextColor);

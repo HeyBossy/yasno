@@ -39,15 +39,15 @@
         <button onclick="toggleAccessibility()">Закрыть панель</button>
     </div>
     <section class="proposal-section">
-        <div id="text-button" class="proposal-card">Вставьте текст</div>
-        <div id="image-button" class="proposal-card">Вставьте фотографию статьи</div>
-        <div id="url-button" class="proposal-card">Вставьте ссылку на статью</div>
+        <div id="text-button" class="proposal-card" data-default-width="200px" data-default-height="150px" data-default-background-color="#007bff" data-default-color="white">Вставьте текст</div>
+        <div id="image-button" class="proposal-card" data-default-width="200px" data-default-height="150px" data-default-background-color="#007bff" data-default-color="white">Вставьте документ</div>
     </section>
     <form id="submission-form" style="display: none; text-align: center;">
         <textarea id="input-area" rows="10" cols="50"></textarea>
         <button type="submit">Отправить</button>
     </form>
     <script src="accessibility.js"></script>
+    <script src="proposal.js"></script>
     <script>
         document.getElementById('text-button').addEventListener('click', function() {
             const form = document.getElementById('submission-form');

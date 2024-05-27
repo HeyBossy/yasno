@@ -63,6 +63,7 @@ nav ul li a img {
     height: 100%;
     object-fit: cover;
     filter: blur(8px);
+    transition: filter 0.5s ease; /* Smooth transition for blur effect */
 }
 
 .hero-image::before {
@@ -86,6 +87,7 @@ nav ul li a img {
     border-radius: 10px;
     background-color: transparent; /* Прозрачный фон */
     box-shadow: none;
+    transition: all 0.5s ease;
 }
 
 .hero h1 {
@@ -108,6 +110,8 @@ nav ul li a img {
     color: white;
     border: none;
     border-radius: 5px;
+    transform: translate(0, 0); /* Ensure no transformation */
+    transition: all 0.5s ease;
 }
 
 /* About section styles */
@@ -129,6 +133,7 @@ nav ul li a img {
     width: 100%;
     max-width: 700px;
     margin-bottom: 20px;
+    transition: transform 0.5s ease; /* Smooth transition for transform */
 }
 
 .about-section .about-text {
@@ -162,6 +167,45 @@ nav ul li a img {
     background-color: transparent; /* Прозрачный фон */
     color: black;
     padding: 10px;
+}
+
+/* Slider styles */
+.slider {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.slider img {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+    transition: transform 0.5s ease; /* Smooth transition for transform */
+}
+
+.slider .about-text {
+    transition: opacity 0.5s ease; /* Smooth transition for opacity */
+}
+
+.slider .slider-controls {
+    display: flex;
+    justify-content: space-between;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.slider-controls button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.slider-controls button:hover {
+    background-color: #0056b3;
 }
 
 /* Accessibility bar styles */
@@ -239,4 +283,11 @@ nav ul li a img {
 
 .green-text {
     color: #008000;
+}
+
+/* Additional spacing at the bottom */
+body::after {
+    content: '';
+    display: block;
+    height: 100px; /* Adjust the height as needed */
 }

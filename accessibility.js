@@ -26,7 +26,7 @@ function changeFontSize(size) {
             scaleFactor = 1.50;
             break;
         case 'large':
-            scaleFactor = 2.00;
+            scaleFactor = 1.75;
             break;
         default:
             scaleFactor = 1.0;
@@ -35,32 +35,13 @@ function changeFontSize(size) {
     const elements = document.querySelectorAll('body *:not(.accessibility-bar *):not(header nav ul li a img)');
     elements.forEach(element => {
         const style = window.getComputedStyle(element);
-        const fontSize = parseFloat(style.fontSize);
         const defaultFontSize = element.getAttribute('data-default-font-size');
 
-        if (defaultFontSize) {
-            element.style.fontSize = (parseFloat(defaultFontSize) * scaleFactor) + 'px';
-        } else {
-            element.setAttribute('data-default-font-size', fontSize);
-            element.style.fontSize = (fontSize * scaleFactor) + 'px';
+        if (!defaultFontSize) {
+            element.setAttribute('data-default-font-size', style.fontSize);
         }
-    });
 
-    // Масштабирование кнопок в секции "Proposal"
-    const proposalCards = document.querySelectorAll('.proposal-card');
-    proposalCards.forEach(card => {
-        const defaultWidth = card.getAttribute('data-default-width');
-        const defaultHeight = card.getAttribute('data-default-height');
-
-        if (defaultWidth && defaultHeight) {
-            card.style.width = (parseFloat(defaultWidth) * scaleFactor) + 'px';
-            card.style.height = (parseFloat(defaultHeight) * scaleFactor) + 'px';
-        } else {
-            card.setAttribute('data-default-width', card.offsetWidth);
-            card.setAttribute('data-default-height', card.offsetHeight);
-            card.style.width = (card.offsetWidth * scaleFactor) + 'px';
-            card.style.height = (card.offsetHeight * scaleFactor) + 'px';
-        }
+        element.style.fontSize = (parseFloat(element.getAttribute('data-default-font-size')) * scaleFactor) + 'px';
     });
 
     currentFontSize = size;
@@ -173,49 +154,86 @@ function toggleSound() {
 }
 
 function resetAccessibility() {
-    document.body.style.fontSize = '16px';
+    document.body.style.fontSize = '';
     document.body.style.fontFamily = 'Arial, sans-serif';
     document.body.classList.remove('black-scheme', 'white-scheme', 'blue-scheme', 'beige-scheme', 'yellow-scheme');
+
+    // Reset text and background color
     document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, .about-section p, .about-section h2, .hero-text h1, .hero-text p').forEach(element => {
         element.classList.remove('black-text', 'white-text', 'dark-blue-text', 'brown-text', 'green-text');
-        element.style.fontSize = ''; // Reset font size
+        element.style.fontSize = '';
+        element.style.fontFamily = '';
+        element.style.color = '';
+        element.style.backgroundColor = '';
     });
 
-    // Reset font size data attributes
+    // Reset hero-text class
+    const heroTextElements = document.querySelectorAll('.hero-text');
+    heroTextElements.forEach(element => {
+        element.style.fontSize = '';
+        element.style.top = element.getAttribute('data-default-top');
+        element.style.left = element.getAttribute('data-default-left');
+        element.style.transform = element.getAttribute('data-default-transform');
+        element.style.color = 'black';
+        element.style.backgroundColor = 'transparent';
+    });
+
+    // Reset button in hero section
+    const heroButton = document.querySelector('.hero-button');
+    if (heroButton) {
+        heroButton.style.fontSize = heroButton.getAttribute('data-default-font-size');
+        heroButton.style.padding = heroButton.getAttribute('data-default-padding');
+        heroButton.style.transform = 'translate(0, 0)'; // Reset any transformations
+    }
+
+    // Reset proposal-section buttons
+    const proposalButtons = document.querySelectorAll('.proposal-card button');
+    proposalButtons.forEach(button => {
+        button.style.width = '200px';
+        button.style.height = '150px';
+        button.style.fontSize = ''; // Reset font size
+        button.style.backgroundColor = '#007bff'; // Reset background color
+        button.style.color = 'white'; // Reset text color
+        button.style.transform = 'translate(0, 0)'; // Reset any transformations
+        button.removeAttribute('data-default-width');
+        button.removeAttribute('data-default-height');
+    });
+
+    // Reset font size attributes
     document.querySelectorAll('[data-default-font-size]').forEach(element => {
         element.removeAttribute('data-default-font-size');
     });
 
-    // Reset the header text elements
     document.querySelectorAll('header nav ul li a').forEach(element => {
-        element.style.fontSize = '16px';
+        element.style.fontSize = '';
     });
 
-    // Reset the proposal card sizes
-    const proposalCards = document.querySelectorAll('.proposal-card');
-    proposalCards.forEach(card => {
-        card.style.width = '200px'; // Reset to default width
-        card.style.height = '150px'; // Reset to default height
-        card.removeAttribute('data-default-width');
-        card.removeAttribute('data-default-height');
+    const images = document.querySelectorAll('.about-section .content img.about-image');
+    images.forEach(image => {
+        image.style.width = '';
+        image.style.maxWidth = '';
+        image.style.height = '';
     });
 
     currentFontSize = 'medium';
 
-    // Show all images
     toggleImages(true);
     imagesHidden = false;
 
     const icons = document.querySelectorAll('header nav ul li a img');
     icons.forEach(icon => {
-        icon.style.height = '20px'; // Reset to default height
+        icon.style.height = '';
         icon.removeAttribute('data-default-icon-size');
-        icon.style.verticalAlign = 'middle'; // Reset to default alignment
+        icon.style.verticalAlign = 'middle';
     });
+
+    clearInterval(slideInterval);
+    currentSlide = 0;
+    showSlide(currentSlide);
+    slideInterval = setInterval(nextSlide, slideIntervalTime);
 
     updateActiveButton('');
 }
-
 
 function ensureEyeIconVisibility() {
     const eyeIcon = document.querySelector('header nav ul li a img');
@@ -227,7 +245,6 @@ function ensureEyeIconVisibility() {
         eyeIcon.style.display = "block";
     }
 }
-
 
 function updateActiveButton(activeButtonId) {
     const buttons = document.querySelectorAll('.accessibility-bar button');

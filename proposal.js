@@ -154,33 +154,58 @@ function toggleSound() {
 }
 
 function resetAccessibility() {
-    document.body.style.fontSize = '16px';
+    document.body.style.fontSize = '';
     document.body.style.fontFamily = 'Arial, sans-serif';
     document.body.classList.remove('black-scheme', 'white-scheme', 'blue-scheme', 'beige-scheme', 'yellow-scheme');
-    document.querySelectorAll('h1, h2, h3, h4, h5, h6,, p, span').forEach(element => {
+
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, .about-section p, .about-section h2, .hero-text h1, .hero-text p').forEach(element => {
         element.classList.remove('black-text', 'white-text', 'dark-blue-text', 'brown-text', 'green-text');
-        element.style.fontSize = ''; // Reset font size
+        element.style.fontSize = '';
+        element.style.fontFamily = '';
+        element.style.color = '';
+        element.style.backgroundColor = '';
     });
 
-    // Reset font size data attributes
     document.querySelectorAll('[data-default-font-size]').forEach(element => {
         element.removeAttribute('data-default-font-size');
     });
 
-    // Reset the header text elements
     document.querySelectorAll('header nav ul li a').forEach(element => {
-        element.style.fontSize = '16px';
+        element.style.fontSize = '';
+    });
+
+    const proposalCards = document.querySelectorAll('.proposal-card');
+    proposalCards.forEach(card => {
+        card.style.width = card.getAttribute('data-default-width');
+        card.style.height = card.getAttribute('data-default-height');
+        card.style.backgroundColor = card.getAttribute('data-default-background-color');
+        card.style.color = card.getAttribute('data-default-color');
+    });
+
+    const images = document.querySelectorAll('.about-section .content img.about-image');
+    images.forEach(image => {
+        image.style.width = '';
+        image.style.maxWidth = '';
+        image.style.height = '';
     });
 
     currentFontSize = 'medium';
 
-    // Show all images
     toggleImages(true);
     imagesHidden = false;
 
-    const eyeIcon = document.querySelector('header nav ul li a img');
-    eyeIcon.style.height = '20px'; // Reset to default height
-    eyeIcon.removeAttribute('data-default-icon-size');
+    const icons = document.querySelectorAll('header nav ul li a img');
+    icons.forEach(icon => {
+        icon.style.height = '';
+        icon.removeAttribute('data-default-icon-size');
+        icon.style.verticalAlign = 'middle';
+    });
+
+    clearInterval(slideInterval);
+    currentSlide = 0;
+    showSlide(currentSlide);
+    slideInterval = setInterval(nextSlide, slideIntervalTime);
+
     updateActiveButton('');
 }
 

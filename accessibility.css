@@ -7,6 +7,7 @@ header nav ul li {
 header nav ul li a img {
     transition: height 0.3s ease, vertical-align 0.3s ease;
 }
+
 .accessibility-bar {
     display: flex;
     flex-direction: column;
@@ -26,6 +27,7 @@ header nav ul li a img {
     vertical-align: middle;
     transition: transform 0.3s ease;
 }
+
 .accessibility-bar button.active img {
     transform: scale(1.2); /* Увеличение на 20% */
 }
