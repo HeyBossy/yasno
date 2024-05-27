@@ -15,8 +15,6 @@ function toggleAccessibility() {
 }
 
 function changeFontSize(size) {
-    if (currentFontSize === size) return;
-
     let scaleFactor;
     switch(size) {
         case 'small':
@@ -35,20 +33,21 @@ function changeFontSize(size) {
     const elements = document.querySelectorAll('body *:not(.accessibility-bar *):not(header nav ul li a img)');
     elements.forEach(element => {
         const style = window.getComputedStyle(element);
+        const fontSize = parseFloat(style.fontSize);
         const defaultFontSize = element.getAttribute('data-default-font-size');
 
-        if (!defaultFontSize) {
-            element.setAttribute('data-default-font-size', style.fontSize);
+        if (defaultFontSize) {
+            element.style.fontSize = (parseFloat(defaultFontSize) * scaleFactor) + 'px';
+        } else {
+            element.setAttribute('data-default-font-size', fontSize);
+            element.style.fontSize = (fontSize * scaleFactor) + 'px';
         }
-
-        element.style.fontSize = (parseFloat(element.getAttribute('data-default-font-size')) * scaleFactor) + 'px';
     });
 
     currentFontSize = size;
     updateActiveButton(`font-${size}`);
     ensureEyeIconVisibility();
 }
-
 
 function changeFontFamily(font) {
     let fontFamily;
@@ -153,12 +152,24 @@ function toggleSound() {
     alert('Sound toggle not implemented yet.');
 }
 
+function resetSlidePositions() {
+    const slides = document.querySelectorAll('.slider img');
+    slides.forEach(slide => {
+        slide.style.transform = '';
+        slide.style.marginBottom = '';
+    });
+
+    const slideTexts = document.querySelectorAll('.about-text');
+    slideTexts.forEach(text => {
+        text.style.transform = '';
+    });
+}
+
 function resetAccessibility() {
     document.body.style.fontSize = '';
     document.body.style.fontFamily = 'Arial, sans-serif';
     document.body.classList.remove('black-scheme', 'white-scheme', 'blue-scheme', 'beige-scheme', 'yellow-scheme');
 
-    // Reset text and background color
     document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, .about-section p, .about-section h2, .hero-text h1, .hero-text p').forEach(element => {
         element.classList.remove('black-text', 'white-text', 'dark-blue-text', 'brown-text', 'green-text');
         element.style.fontSize = '';
@@ -167,40 +178,8 @@ function resetAccessibility() {
         element.style.backgroundColor = '';
     });
 
-    // Reset hero-text class
-    const heroTextElements = document.querySelectorAll('.hero-text');
-    heroTextElements.forEach(element => {
-        element.style.fontSize = '';
-        element.style.top = element.getAttribute('data-default-top');
-        element.style.left = element.getAttribute('data-default-left');
-        element.style.transform = element.getAttribute('data-default-transform');
-        element.style.color = 'black';
-        element.style.backgroundColor = 'transparent';
-    });
-
-    // Reset button in hero section
-    const heroButton = document.querySelector('.hero-button');
-    if (heroButton) {
-        heroButton.style.fontSize = heroButton.getAttribute('data-default-font-size');
-        heroButton.style.padding = heroButton.getAttribute('data-default-padding');
-        heroButton.style.transform = 'translate(0, 0)'; // Reset any transformations
-    }
-
-    // Reset proposal-section buttons
-    const proposalButtons = document.querySelectorAll('.proposal-card button');
-    proposalButtons.forEach(button => {
-        button.style.width = '200px';
-        button.style.height = '150px';
-        button.style.fontSize = ''; // Reset font size
-        button.style.backgroundColor = '#007bff'; // Reset background color
-        button.style.color = 'white'; // Reset text color
-        button.style.transform = 'translate(0, 0)'; // Reset any transformations
-        button.removeAttribute('data-default-width');
-        button.removeAttribute('data-default-height');
-    });
-
-    // Reset font size attributes
     document.querySelectorAll('[data-default-font-size]').forEach(element => {
+        element.style.fontSize = element.getAttribute('data-default-font-size');
         element.removeAttribute('data-default-font-size');
     });
 
@@ -208,12 +187,25 @@ function resetAccessibility() {
         element.style.fontSize = '';
     });
 
-    const images = document.querySelectorAll('.about-section .content img.about-image');
-    images.forEach(image => {
-        image.style.width = '';
-        image.style.maxWidth = '';
-        image.style.height = '';
+    const proposalCards = document.querySelectorAll('.proposal-card');
+    proposalCards.forEach(card => {
+        card.style.width = card.getAttribute('data-default-width');
+        card.style.height = card.getAttribute('data-default-height');
+        card.style.backgroundColor = card.getAttribute('data-default-background-color');
+        card.style.color = card.getAttribute('data-default-color');
+        card.style.fontSize = card.getAttribute('data-default-font-size'); // Reset font size
     });
+
+    const images = document.querySelectorAll('.about-section .content img.about-image, .slider img');
+    images.forEach(image => {
+        image.style.width = image.getAttribute('data-default-width');
+        image.style.maxWidth = image.getAttribute('data-default-max-width');
+        image.style.height = '';
+        image.style.transform = '';
+        image.style.marginBottom = image.getAttribute('data-default-margin-bottom');
+    });
+
+    resetSlidePositions(); // Добавлено для сброса положения слайдов
 
     currentFontSize = 'medium';
 

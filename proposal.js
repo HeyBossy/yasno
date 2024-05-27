@@ -134,23 +134,42 @@ function changeColorScheme(scheme) {
 function toggleImages(show) {
     const images = document.querySelectorAll('img:not(.accessibility-bar img)');
     images.forEach(image => {
-        if (show) {
-            image.style.display = "block";
-        } else {
-            image.style.display = "none";
-        }
+        image.style.display = show ? "block" : "none";
     });
     imagesHidden = !show;
-    if (show) {
-        updateActiveButton('images-on');
-    } else {
-        updateActiveButton('images-off');
-    }
+    updateActiveButton(show ? 'images-on' : 'images-off');
 }
 
 function toggleSound() {
-    // Implement sound toggle functionality
-    alert('Sound toggle not implemented yet.');
+    let textContent = '';
+    const elements = document.querySelectorAll('.proposal-section .proposal-card, main, .about-text p');
+    elements.forEach(element => {
+        textContent += element.textContent + ' ';
+    });
+
+    textContent = textContent.trim();
+    const data = JSON.stringify({ text: textContent });
+
+    fetch('https://10a2-88-201-206-51.ngrok-free.app/text_to_speech', { // Замените на реальный URL
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: data
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.blob();
+    })
+    .then(blob => {
+        const audioUrl = window.URL.createObjectURL(blob);
+        const audio = new Audio(audioUrl);
+        audio.play();
+    })
+    .catch(error => console.error('Ошибка:', error));
 }
 
 function resetAccessibility() {
@@ -190,7 +209,6 @@ function resetAccessibility() {
     });
 
     currentFontSize = 'medium';
-
     toggleImages(true);
     imagesHidden = false;
 
@@ -261,4 +279,18 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('URL введен: ' + input);
         }
     });
+
+    const soundButton = document.getElementById('soundButton');
+    if (soundButton) {
+        soundButton.addEventListener('click', toggleSound);
+    } else {
+        console.error('Sound button not found');
+    }
+
+    const accessibilityButton = document.querySelector('header nav ul li a[onclick="toggleAccessibility()"]');
+    if (accessibilityButton) {
+        accessibilityButton.addEventListener('click', toggleAccessibility);
+    } else {
+        console.error('Accessibility button not found');
+    }
 });

@@ -69,39 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     slideInterval = setInterval(nextSlide, slideIntervalTime);
 });
 
-// Функция для обработки POST запроса для озвучивания текста
-document.getElementById('soundButton').addEventListener('click', function () {
-    let textContent = '';
-    const elements = document.querySelectorAll('main, .about-text p');
-    elements.forEach(element => {
-        textContent += element.textContent + ' ';
-    });
 
-    textContent = textContent.trim();
-
-    const data = JSON.stringify({ text: textContent });
-
-    fetch('https://e412-88-201-206-51.ngrok-free.app/text_to_speech', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: data
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.blob();
-    })
-    .then(blob => {
-        const audioUrl = window.URL.createObjectURL(blob);
-        const audio = new Audio(audioUrl);
-        audio.play();
-    })
-    .catch(error => console.error('Ошибка:', error));
-});
 
 function openModal(modalId) {
     document.getElementById(modalId).style.display = "block";
@@ -136,4 +104,159 @@ function ensureDefaultTextColor() {
     });
 }
 
+// Для прокрутки слайдов
 document.addEventListener('DOMContentLoaded', ensureDefaultTextColor);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = [
+        {
+            image: 'photo2.jpg',
+            title: 'О нас',
+            text: 'Наш сервис помогает упрощать сложные тексты, делая их доступными для людей с ментальными особенностями, пожилых и тех, кто плохо знает русский язык.'
+        },
+        {
+            image: 'photo4.jpg',
+            title: 'Версия для слепых',
+            text: 'Мы обеспечиваем версию для слабовидящих людей, делая информацию доступной и удобной для всех.'
+        },
+        {
+            image: 'photo3.jpg',
+            title: 'Озвучивание текста',
+            text: 'Наш сервис предлагает высококачественное озвучивание упрощенных текстов, позволяя вам слушать информацию в удобном формате.'
+        }
+    ];
+
+    let currentSlide = 0;
+    const slideIntervalTime = 5000;
+    let slideInterval;
+
+    const aboutImage = document.getElementById('slider-image');
+    const aboutTitle = document.querySelector('.about-text h2');
+    const aboutText = document.querySelector('.about-text p');
+
+    const updateSlide = (index) => {
+        const slide = slides[index];
+        aboutImage.src = slide.image;
+        aboutTitle.textContent = slide.title;
+        aboutText.textContent = slide.text;
+    };
+
+    const showSlide = (index) => {
+        aboutImage.classList.remove('active');
+        aboutText.classList.remove('active');
+        setTimeout(() => {
+            updateSlide(index);
+            aboutImage.classList.add('active');
+            aboutText.classList.add('active');
+        }, 50);
+    };
+
+    document.getElementById('prev').addEventListener('click', () => {
+        clearInterval(slideInterval);
+        currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+        showSlide(currentSlide);
+        slideInterval = setInterval(nextSlide, slideIntervalTime);
+    });
+
+    document.getElementById('next').addEventListener('click', () => {
+        clearInterval(slideInterval);
+        currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+        showSlide(currentSlide);
+        slideInterval = setInterval(nextSlide, slideIntervalTime);
+    });
+
+    const nextSlide = () => {
+        currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+        showSlide(currentSlide);
+    };
+
+    // Initialize first slide and auto slide
+    showSlide(currentSlide);
+    slideInterval = setInterval(nextSlide, slideIntervalTime);
+
+    window.resetSlidePositions = resetSlidePositions;
+});
+
+//Для воспроизведения звука
+let audio;
+let audioUrl = '';
+let audioPaused = false;
+
+document.getElementById('soundButton').addEventListener('click', function () {
+    toggleSoundControl(); // Show the sound control bar
+});
+
+function toggleSoundControl() {
+    const soundControlBar = document.getElementById('soundControlBar');
+    if (soundControlBar.style.display === "none") {
+        soundControlBar.style.display = "flex";
+    } else {
+        soundControlBar.style.display = "none";
+    }
+}
+
+function playAudio() {
+    if (!audioUrl) {
+        let textContent = '';
+        const elements = document.querySelectorAll('main, .about-text p');
+        elements.forEach(element => {
+            textContent += element.textContent + ' ';
+        });
+
+        textContent = textContent.trim();
+
+        const data = JSON.stringify({ text: textContent });
+
+        fetch('https://10a2-88-201-206-51.ngrok-free.app/text_to_speech', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: data
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            audioUrl = window.URL.createObjectURL(blob);
+            audio = new Audio(audioUrl);
+            audio.play();
+            document.getElementById('playButton').style.display = 'none';
+            document.getElementById('stopButton').style.display = 'inline';
+        })
+        .catch(error => console.error('Ошибка:', error));
+    } else {
+        if (audioPaused) {
+            audio.play();
+            audioPaused = false;
+        } else {
+            audio = new Audio(audioUrl);
+            audio.play();
+        }
+        document.getElementById('playButton').style.display = 'none';
+        document.getElementById('stopButton').style.display = 'inline';
+    }
+}
+
+function stopAudio() {
+    if (audio) {
+        audio.pause();
+        audioPaused = true;
+        document.getElementById('playButton').style.display = 'inline';
+        document.getElementById('stopButton').style.display = 'none';
+    }
+}
+
+function restartAudio() {
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play();
+        audioPaused = false;
+        document.getElementById('playButton').style.display = 'none';
+        document.getElementById('stopButton').style.display = 'inline';
+    }
+}
