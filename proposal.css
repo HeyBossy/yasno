@@ -5,6 +5,9 @@ body {
     padding: 0;
     color: #000; /* Default text color */
     background-color: #f0f4f8; /* Default background color */
+    height: 100vh;
+    background: url('white_background.png') no-repeat center center fixed; 
+    background-size: cover;
 }
 
 /* Header styles */
@@ -44,13 +47,68 @@ nav ul li a img {
     transition: height 0.3s ease, font-size 0.3s ease; /* Smooth transition for resizing */
 }
 
-/* Proposal section styles */
-.proposal-section {
+/* Hero section styles */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px);
+    transition: filter 0.5s ease; /* Smooth transition for blur effect */
+}
+
+.hero-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.hero-text {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black; /* Default text color */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: transparent; /* Прозрачный фон */
+    box-shadow: none;
+    transition: all 0.5s ease;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin: 0;
+    color: black; /* Ensure hero text is visible */
+}
+
+.hero p {
+    font-size: 24px;
+    margin: 10px 0;
+    color: black; /* Ensure hero text is visible */
+}
+
+.hero .button-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
-    gap: 30px;
+    justify-content: space-between;
+    gap: 20px;
     margin-top: 20px;
 }
 
@@ -59,10 +117,10 @@ nav ul li a img {
     color: white; /* White text */
     border: 2px solid #0056b3; /* Darker blue border */
     border-radius: 10px; /* Rounded corners */
-    padding: 20px;
+    padding: 10px; /* Reduced padding */
     text-align: center;
     width: 200px;
-    height: 150px;
+    height: 100px; /* Reduced height */
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -79,11 +137,20 @@ nav ul li a img {
 }
 
 /* Form styles */
-#submission-form {
+.submission-form {
     display: none;
     text-align: center;
-    margin: 20px auto;
+    margin: 0 auto;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 600px;
+    width: 80%;
 }
 
 #input-area {

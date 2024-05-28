@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Упрощение финансовых текстов</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Text Output Layout</title>
+    <link rel="stylesheet" href="styles_output.css">
     <link rel="stylesheet" href="accessibility.css">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="#about">О нас</a></li>
+                <li><a href="index.html">О нас</a></li>
                 <li><a href="proposal.html">Упрощение текста</a></li>
                 <li><a href="#" onclick="toggleAccessibility()"><img src="eye-icon.png" style="height: 20px;"></a></li>
                 <li><a href="#" id="soundButton"><img src="sound_icon.png" style="height: 20px;"></a></li>
@@ -19,31 +19,10 @@
         </nav>
     </header>
     <main>
-        <section class="hero">
-            <div class="hero-image-container">
-                <img src="photo1.jpg" alt="Фото 1" class="hero-image blurred">
-                <div class="hero-text" data-default-top="50%" data-default-left="50%" data-default-transform="translate(-50%, -50%)">
-                    <h1 data-default-font-size="48px">Текст для Всех</h1>
-                    <p data-default-font-size="24px">Превращайте сложные банковские тексты в ясные формулировки и слушайте их озвучку с помощью нашего сервиса!</p>
-                    <form action="proposal.html" method="get">
-                        <button type="submit" class="hero-button" data-default-font-size="18px" data-default-padding="10px 20px">Упростить текст</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-        <section id="about" class="about-section">
-            <div class="slider">
-                <img id="slider-image" class="about-image active" src="photo2.jpg" alt="Фото 2" data-default-width="100%" data-default-max-width="700px" data-default-margin-bottom="20px">
-                <div id="slider-text" class="about-text active" data-default-transform="translate(0, 0)">
-                    <h2 data-default-font-size="36px">О нас</h2>
-                    <p data-default-font-size="18px">Наш сервис помогает упрощать сложные тексты, делая их доступными для людей с ментальными особенностями, пожилых и тех, кто плохо знает русский язык.</p>
-                </div>
-                <div class="slider-controls">
-                    <button id="prev">←</button>
-                    <button id="next">→</button>
-                </div>
-            </div>
-        </section>
+        <div class="content">
+            <button class="metrics-button" onclick="loadMetrics()">Метрики</button>
+            <div id="outputText" class="text-output"></div>
+        </div>
     </main>
     <div id="accessibilityBar" class="accessibility-bar" style="display: none;">
         <div class="accessibility-options">
@@ -81,6 +60,6 @@
         </div>
     </div>
     <script src="accessibility.js"></script>
-    <script src="script.js"></script>
+    <script src="output.js"></script>
 </body>
 </html>

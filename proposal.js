@@ -199,6 +199,7 @@ function resetAccessibility() {
         card.style.height = card.getAttribute('data-default-height');
         card.style.backgroundColor = card.getAttribute('data-default-background-color');
         card.style.color = card.getAttribute('data-default-color');
+        card.textContent = card.getAttribute('data-default-text');
     });
 
     const images = document.querySelectorAll('.about-section .content img.about-image');
@@ -219,12 +220,18 @@ function resetAccessibility() {
         icon.style.verticalAlign = 'middle';
     });
 
-    clearInterval(slideInterval);
-    currentSlide = 0;
-    showSlide(currentSlide);
-    slideInterval = setInterval(nextSlide, slideIntervalTime);
-
     updateActiveButton('');
+
+    // Reset the form and buttons
+    const form = document.getElementById('submission-form');
+    form.style.top = form.getAttribute('data-default-top');
+    form.style.left = form.getAttribute('data-default-left');
+    form.style.transform = form.getAttribute('data-default-transform');
+    form.style.display = 'none';
+
+    const inputArea = document.getElementById('input-area');
+    inputArea.value = inputArea.getAttribute('data-default-value');
+    inputArea.placeholder = inputArea.getAttribute('data-default-placeholder');
 }
 
 function ensureEyeIconVisibility() {
@@ -252,13 +259,13 @@ function updateActiveButton(activeButtonId) {
 document.addEventListener('DOMContentLoaded', () => {
     const textButton = document.getElementById('text-button');
     const imageButton = document.getElementById('image-button');
-    const urlButton = document.getElementById('url-button');
 
     textButton.addEventListener('click', () => {
-        const input = prompt('Введите текст:');
-        if (input !== null) {
-            alert('Текст введен: ' + input);
-        }
+        const form = document.getElementById('submission-form');
+        const inputArea = document.getElementById('input-area');
+        inputArea.value = '';
+        inputArea.placeholder = 'Введите текст:';
+        form.style.display = 'block';
     });
 
     imageButton.addEventListener('click', () => {
@@ -273,16 +280,9 @@ document.addEventListener('DOMContentLoaded', () => {
         input.click();
     });
 
-    urlButton.addEventListener('click', () => {
-        const input = prompt('Введите URL:');
-        if (input !== null) {
-            alert('URL введен: ' + input);
-        }
-    });
-
     const soundButton = document.getElementById('soundButton');
     if (soundButton) {
-        soundButton.addEventListener('click', toggleSound);
+        soundButton.addEventListener('click', toggleSoundControl);
     } else {
         console.error('Sound button not found');
     }
@@ -294,3 +294,83 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Accessibility button not found');
     }
 });
+
+// For sound control
+let audio;
+let audioUrl = '';
+let audioPaused = false;
+
+function toggleSoundControl() {
+    const soundControlBar = document.getElementById('soundControlBar');
+    if (soundControlBar.style.display === "none") {
+        soundControlBar.style.display = "flex";
+    } else {
+        soundControlBar.style.display = "none";
+    }
+}
+
+function playAudio() {
+    if (!audioUrl) {
+        let textContent = '';
+        const elements = document.querySelectorAll('main, .about-text p');
+        elements.forEach(element => {
+            textContent += element.textContent + ' ';
+        });
+
+        textContent = textContent.trim();
+
+        const data = JSON.stringify({ text: textContent });
+
+        fetch('https://10a2-88-201-206-51.ngrok-free.app/text_to_speech', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: data
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            audioUrl = window.URL.createObjectURL(blob);
+            audio = new Audio(audioUrl);
+            audio.play();
+            document.getElementById('playButton').style.display = 'none';
+            document.getElementById('stopButton').style.display = 'inline';
+        })
+        .catch(error => console.error('Ошибка:', error));
+    } else {
+        if (audioPaused) {
+            audio.play();
+            audioPaused = false;
+        } else {
+            audio = new Audio(audioUrl);
+            audio.play();
+        }
+        document.getElementById('playButton').style.display = 'none';
+        document.getElementById('stopButton').style.display = 'inline';
+    }
+}
+
+function stopAudio() {
+    if (audio) {
+        audio.pause();
+        audioPaused = true;
+        document.getElementById('playButton').style.display = 'inline';
+        document.getElementById('stopButton').style.display = 'none';
+    }
+}
+
+function restartAudio() {
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play();
+        audioPaused = false;
+        document.getElementById('playButton').style.display = 'none';
+        document.getElementById('stopButton').style.display = 'inline';
+    }
+}

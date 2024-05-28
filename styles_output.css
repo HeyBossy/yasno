@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 25px; /* Increased for readability */
+    line-height: 1.6;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+.content {
+    padding: 20px;
+    max-width: 1200px; /* Increased width for more content space */
+    margin: 0 auto; /* Center the content */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+.metrics-button {
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.text-output {
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+/* Header styles */
+header {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000; /* Keep header text color black */
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #007bff; /* Optional: Add a hover effect for header links */
+}
+
+nav ul li a img {
+    height: 20px; /* Default size for the eye icon */
+    transition: height 0.3s ease, font-size 0.3s ease; /* Smooth transition for resizing */
+}
