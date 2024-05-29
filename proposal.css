@@ -42,11 +42,6 @@ nav ul li a:hover {
     color: #007bff; /* Optional: Add a hover effect for header links */
 }
 
-nav ul li a img {
-    height: 20px; /* Default size for the eye icon */
-    transition: height 0.3s ease, font-size 0.3s ease; /* Smooth transition for resizing */
-}
-
 /* Hero section styles */
 .hero {
     position: relative;
@@ -99,15 +94,9 @@ nav ul li a img {
     color: black; /* Ensure hero text is visible */
 }
 
-.hero p {
-    font-size: 24px;
-    margin: 10px 0;
-    color: black; /* Ensure hero text is visible */
-}
-
 .hero .button-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     gap: 20px;
     margin-top: 20px;
 }
@@ -119,8 +108,8 @@ nav ul li a img {
     border-radius: 10px; /* Rounded corners */
     padding: 10px; /* Reduced padding */
     text-align: center;
-    width: 200px;
-    height: 100px; /* Reduced height */
+    width: 300px;
+    height: 50px; /* Adjusted height */
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -142,7 +131,7 @@ nav ul li a img {
     text-align: center;
     margin: 0 auto;
     position: absolute;
-    top: 75%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(255, 255, 255, 0.8);
@@ -153,7 +142,7 @@ nav ul li a img {
     width: 80%;
 }
 
-#input-area {
+#file-input {
     width: 100%;
     margin-bottom: 20px;
     padding: 10px;
@@ -162,7 +151,7 @@ nav ul li a img {
     border-radius: 4px;
 }
 
-#submission-form button {
+#document-form button {
     padding: 10px 20px;
     font-size: 18px;
     cursor: pointer;
@@ -173,6 +162,46 @@ nav ul li a img {
     transition: background-color 0.3s ease;
 }
 
-#submission-form button:hover {
+#document-form button:hover {
     background-color: #0056b3;
+}
+
+/* Loading animation styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #333;
 }

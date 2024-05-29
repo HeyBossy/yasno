@@ -1,24 +1,9 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    fetch('llama_output.json')
-        .then(response => response.json())
-        .then(data => {
-            const text = data.text
-                .split('.')
-                .map(sentence => sentence.trim())
-                .join('.\n');
-            document.getElementById('outputText').innerText = text;
-        })
-        .catch(error => console.error('Error fetching llama_output.json:', error));
+    const text = localStorage.getItem('outputText');
+    if (text) {
+        document.getElementById('outputText').innerText = text;
+    }
 });
-
-function loadMetrics() {
-    fetch('metrics.json')
-        .then(response => response.json())
-        .then(data => {
-            alert(JSON.stringify(data, null, 2));
-        })
-        .catch(error => console.error('Error fetching metrics.json:', error));
-}
 
 // Для воспроизведения звука
 let audio;
@@ -50,7 +35,7 @@ function playAudio() {
 
         const data = JSON.stringify({ text: textContent });
 
-        fetch('https://10a2-88-201-206-51.ngrok-free.app/text_to_speech', {
+        fetch('https://0210-88-201-206-51.ngrok-free.app/text_to_speech', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,4 +87,67 @@ function restartAudio() {
         document.getElementById('playButton').style.display = 'none';
         document.getElementById('stopButton').style.display = 'inline';
     }
+}
+
+// Добавлена функция для сброса настроек
+function resetAccessibility2() {
+    document.body.style.fontSize = '';
+    document.body.style.fontFamily = 'Arial, sans-serif';
+    document.body.classList.remove('black-scheme', 'white-scheme', 'blue-scheme', 'beige-scheme', 'yellow-scheme');
+
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, .about-section p, .about-section h2, .hero-text h1, .hero-text p').forEach(element => {
+        element.classList.remove('black-text', 'white-text', 'dark-blue-text', 'brown-text', 'green-text');
+        element.style.fontSize = element.getAttribute('data-default-font-size') || '';
+        element.style.fontFamily = '';
+        element.style.color = '';
+        element.style.backgroundColor = '';
+    });
+
+    const outputText = document.getElementById('outputText');
+    outputText.style.fontSize = outputText.getAttribute('data-default-font-size') || '';
+    outputText.removeAttribute('data-default-font-size');
+
+    currentFontSize = 'medium';
+
+    const icons = document.querySelectorAll('header nav ul li a img');
+    icons.forEach(icon => {
+        icon.style.height = '';
+        icon.removeAttribute('data-default-icon-size');
+        icon.style.verticalAlign = 'middle';
+    });
+}
+
+// Добавлен обработчик для кнопки "Вернуть стандартные настройки"
+document.querySelector('button[onclick="resetAccessibility2()"]').addEventListener('click', resetAccessibility2);
+
+// Обработчик для изменения размера шрифта
+function changeFontSize(size) {
+    let scaleFactor;
+    switch(size) {
+        case 'small':
+            scaleFactor = 1.25;
+            break;
+        case 'medium':
+            scaleFactor = 1.50;
+            break;
+        case 'large':
+            scaleFactor = 1.75;
+            break;
+        default:
+            scaleFactor = 1.0;
+    }
+
+    const outputText = document.getElementById('outputText');
+    const style = window.getComputedStyle(outputText);
+    const fontSize = parseFloat(style.fontSize);
+    const defaultFontSize = outputText.getAttribute('data-default-font-size');
+
+    if (defaultFontSize) {
+        outputText.style.fontSize = (parseFloat(defaultFontSize) * scaleFactor) + 'px';
+    } else {
+        outputText.setAttribute('data-default-font-size', fontSize);
+        outputText.style.fontSize = (fontSize * scaleFactor) + 'px';
+    }
+
+    currentFontSize = size;
 }

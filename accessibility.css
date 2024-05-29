@@ -51,7 +51,7 @@ header nav ul li a img {
 
 .accessibility-bar button.active {
     background-color: #ffffff;
-    border-color: green;
+    border-color: rgb(8, 94, 8);
 }
 
 .accessibility-bar .accessibility-options {
@@ -102,7 +102,7 @@ body.beige-scheme {
 
 body.yellow-scheme {
     background-color: #8b4513;
-    color: #00ff00; /* Green text */
+    color: #12a812; /* Green text */
 }
 
 /* Text color classes */
