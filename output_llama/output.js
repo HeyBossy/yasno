@@ -35,6 +35,9 @@ function playAudio() {
 
         const data = JSON.stringify({ text: textContent });
 
+        const loading = document.getElementById('loading');
+        loading.style.display = 'flex';
+
         fetch('https://5ba7-88-201-206-51.ngrok-free.app/text_to_speech', {
             method: 'POST',
             headers: {
@@ -56,7 +59,10 @@ function playAudio() {
             document.getElementById('playButton').style.display = 'none';
             document.getElementById('stopButton').style.display = 'inline';
         })
-        .catch(error => console.error('Ошибка:', error));
+        .catch(error => console.error('Ошибка:', error))
+        .finally(() => {
+            loading.style.display = 'none';
+        });
     } else {
         if (audioPaused) {
             audio.play();
