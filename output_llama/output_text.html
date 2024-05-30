@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Output Layout</title>
+    <link rel="stylesheet" href="styles_output.css">
+    <link rel="stylesheet" href="../accessibility/accessibility.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../text_for_everyone/index.html">О нас</a></li>
+                <li><a href="../input_text/proposal.html">Упрощение текста</a></li>
+                <li><a href="#" onclick="toggleAccessibility()"><img src="../data/eye-icon.png" style="height: 20px;"></a></li>
+                <li><a href="#" id="soundButton"><img src="../data/sound_icon.png" style="height: 20px;"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="content">
+            <div id="outputText" class="text-output"></div>
+        </div>
+    </main>
+    <div id="accessibilityBar" class="accessibility-bar" style="display: none;">
+        <div class="accessibility-options">
+            <span>Размер шрифта:</span>
+            <button onclick="changeFontSize('small')"><img src="../data/small.jpg" alt="small"></button>
+            <button onclick="changeFontSize('medium')"><img src="../data/medium.jpg" alt="medium"></button>
+            <button onclick="changeFontSize('large')"><img src="../data/large.jpg" alt="large"></button>
+            <span>Цвета сайта:</span>
+            <button id="color-black" onclick="changeColorScheme('black')"><img src="../data/bl_wh.jpg" alt="black"></button>
+            <button id="color-white" onclick="changeColorScheme('white')"><img src="../data/wh_bl.jpg" alt="white"></button>
+            <button id="color-blue" onclick="changeColorScheme('blue')"><img src="../data/bl_sin.jpg" alt="blue"></button>
+            <button id="color-beige" onclick="changeColorScheme('beige')"><img src="../data/brwn.jpg" alt="beige"></button>
+            <button id="color-yellow" onclick="changeColorScheme('yellow')"><img src="../data/bl_green.jpg" alt="yellow"></button>
+            <span>Изображения:</span>
+            <button id="images-on" onclick="toggleImages(true)">Вкл</button>
+            <button id="images-off" onclick="toggleImages(false)">Выкл</button>
+        </div>
+        <button onclick="resetAccessibility2()">Вернуть стандартные настройки</button>
+        <button onclick="toggleAccessibility()">Закрыть панель</button>
+    </div>
+    <div id="soundControlBar" class="accessibility-bar" style="display: none;">
+        <div class="sound-options">
+            <button id="playButton" onclick="playAudio()">
+                <img src="../data/play.png" alt="Play" style="height: 30px;">
+            </button>
+            <button id="stopButton" onclick="stopAudio()" style="display: none;">
+                <img src="../data/stop.png" alt="Stop" style="height: 30px;">
+            </button>
+            <button id="restartButton" onclick="restartAudio()">
+                <img src="../data/restart.png" alt="Restart" style="height: 30px;">
+            </button>
+            <button onclick="toggleSoundControl()">
+                Закрыть панель
+            </button>
+        </div>
+    </div>
+    <script src="../accessibility/accessibility.js"></script>
+    <script src="output.js"></script>
+</body>
+</html>

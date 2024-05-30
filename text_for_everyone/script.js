@@ -110,17 +110,17 @@ document.addEventListener('DOMContentLoaded', ensureDefaultTextColor);
 document.addEventListener('DOMContentLoaded', () => {
     const slides = [
         {
-            image: 'photo2.jpg',
+            image: '../data/photo2.jpg',
             title: 'О нас',
             text: 'Наш сервис помогает упрощать сложные тексты, делая их доступными для людей с ментальными особенностями, пожилых и тех, кто плохо знает русский язык.'
         },
         {
-            image: 'photo4.jpg',
+            image: '../data/photo4.jpg',
             title: 'Версия для слабовидящих',
             text: 'Мы обеспечиваем версию для слабовидящих людей, делая информацию доступной и удобной для всех.'
         },
         {
-            image: 'photo3.jpg',
+            image: '../data/photo3.jpg',
             title: 'Озвучивание текста',
             text: 'Наш сервис предлагает высококачественное озвучивание упрощенных текстов, позволяя вам слушать информацию в удобном формате.'
         }
