@@ -207,7 +207,7 @@ function playAudio() {
 
         const data = JSON.stringify({ text: textContent });
 
-        fetch('https://0210-88-201-206-51.ngrok-free.app/text_to_speech', {
+        fetch('https://5ba7-88-201-206-51.ngrok-free.app/text_to_speech', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

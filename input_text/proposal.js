@@ -20,14 +20,14 @@ function submitDocument() {
         const loading = document.getElementById('loading');
         loading.style.display = 'flex';
 
-        fetch('https://0210-88-201-206-51.ngrok-free.app/doc_to_text', {
+        fetch('https://5ba7-88-201-206-51.ngrok-free.app/doc_to_text', {
             method: 'POST',
             body: formData
         })
         .then(response => response.json())
         .then(data => {
             localStorage.setItem('outputText', data.text);
-            window.location.href = 'output_text.html';
+            window.location.href = '../output_llama/output_text.html';
         })
         .catch(error => {
             console.error('Error:', error);
