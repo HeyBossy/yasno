@@ -38,7 +38,7 @@ function playAudio() {
         const loading = document.getElementById('loading');
         loading.style.display = 'flex';
 
-        fetch('https://5ba7-88-201-206-51.ngrok-free.app/text_to_speech', {
+        fetch('https://2a28-192-121-87-204.ngrok-free.app/text_to_speech', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -20,7 +20,7 @@ function submitDocument() {
         const loading = document.getElementById('loading');
         loading.style.display = 'flex';
 
-        fetch('https://5ba7-88-201-206-51.ngrok-free.app/doc_to_text', {
+        fetch('https://2a28-192-121-87-204.ngrok-free.app/doc_to_text', {
             method: 'POST',
             body: formData
         })
